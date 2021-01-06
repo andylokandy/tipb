@@ -47,6 +47,8 @@ message SelectResponse {
 	// ndvs collects the number of distinct value information per range. It will be used to serve as execution feedback information.
 	// Helping us improve the table's statistics information.
 	repeated int64 ndvs = 10;
+
+	required bool try_readback_succeed = 11;
 }
 
 // Chunk contains multiple rows data and rows meta.
@@ -72,6 +74,7 @@ message DAGRequest {
 
 	// It represents push down Executors.
 	repeated Executor executors = 2;
+	repeated Executor try_readback_executors = 18;
 
 	// time zone offset in seconds
 	optional int64 time_zone_offset = 3 [(gogoproto.nullable) = false];
