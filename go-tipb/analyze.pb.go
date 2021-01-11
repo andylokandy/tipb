@@ -54,6 +54,8 @@
 		ColumnInfo
 		IndexInfo
 		KeyRange
+		DAGExecutor
+		SelectResponseV2
 		Row
 		Error
 		SelectResponse

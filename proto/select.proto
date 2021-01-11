@@ -13,19 +13,19 @@ option (gogoproto.sizer_all) = true;
 option (gogoproto.unmarshaler_all) = true;
 
 enum DAGExecutorType {
-	IndexScan = 0;
-	TableScan = 1;
+	IndexScanExecutor = 1;
+	TableScanExecutor = 2;
 }
 
 message DAGExecutor {
-	required uint64 id = 0;
-	required DAGExecutorType type = 1;
-	optional uint64 table_scan_on = 2;
-	repeated Executor executors = 5;
+	required uint64 id = 1;
+	required DAGExecutorType type = 2;
+	optional uint64 table_scan_on = 3;
+	repeated Executor executors = 4;
 }
 
 message SelectResponseV2 {
-	repeated SelectResponse results = 0;
+	repeated SelectResponse results = 1;
 }
 
 // values are all in text format.
