@@ -12,6 +12,22 @@ option (gogoproto.marshaler_all) = true;
 option (gogoproto.sizer_all) = true;
 option (gogoproto.unmarshaler_all) = true;
 
+enum DAGExecutorType {
+	IndexScan = 0;
+	TableScan = 1;
+}
+
+message DAGExecutor {
+	required uint64 id = 0;
+	required DAGExecutorType type = 1;
+	optional uint64 table_scan_on = 2;
+	repeated Executor executors = 5;
+}
+
+message SelectResponseV2 {
+	repeated SelectResponse results = 0;
+}
+
 // values are all in text format.
 message Row {
 	optional bytes handle = 1;
@@ -47,6 +63,8 @@ message SelectResponse {
 	// ndvs collects the number of distinct value information per range. It will be used to serve as execution feedback information.
 	// Helping us improve the table's statistics information.
 	repeated int64 ndvs = 10;
+
+	optional int64 executor_id = 11;
 }
 
 // Chunk contains multiple rows data and rows meta.
@@ -72,6 +90,7 @@ message DAGRequest {
 
 	// It represents push down Executors.
 	repeated Executor executors = 2;
+	repeated DAGExecutor executorsV2 = 18;
 
 	// time zone offset in seconds
 	optional int64 time_zone_offset = 3 [(gogoproto.nullable) = false];
